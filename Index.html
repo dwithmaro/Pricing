@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>3dwith_maro - Pricing Guide</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap');
+
+        :root {
+            --bg-color: #1A1A1A;
+            --card-bg-color: #252525;
+            --text-color: #EAEAEA;
+            --text-color-muted: #999;
+            --accent-color: #A8AD9B;
+            --border-color: #333;
+            --tag-bg-color: var(--accent-color);
+            --tag-text-color: var(--bg-color);
+        }
+
+        * {
+            box-sizing: border-box;
+            cursor: none;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 40px;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        .cursor {
+            width: 30px;
+            height: 30px;
+            border: 2px solid var(--text-color);
+            border-radius: 50%;
+            position: fixed;
+            pointer-events: none;
+            z-index: 9999;
+            transform: translate(-50%, -50%);
+            transition: width 0.3s ease, height 0.3s ease, background-color 0.3s ease, border-color 0.3s ease, mix-blend-mode 0.3s ease;
+            mix-blend-mode: difference;
+        }
+
+        .cursor.hovered {
+            width: 60px;
+            height: 60px;
+            background-color: white;
+            border-color: white;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeIn 1s 0.2s ease-out forwards;
+        }
+
+        @keyframes fadeIn {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        header h1 {
+            font-size: 3rem;
+            margin: 0 0 20px 0;
+            color: var(--text-color);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+        
+        .pricing-note {
+            background-color: var(--card-bg-color);
+            border-left: 4px solid var(--accent-color);
+            padding: 15px 25px;
+            margin: 0 auto 40px;
+            border-radius: 8px;
+            max-width: 700px;
+            text-align: center;
+            font-size: 0.95rem;
+            line-height: 1.6;
+            color: var(--text-color-muted);
+        }
+        
+        .pricing-note strong {
+            color: var(--text-color);
+            font-weight: 600;
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+            gap: 25px;
+        }
+
+        .gallery-item {
+            background-color: var(--card-bg-color);
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+            display: flex;
+            flex-direction: column;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .gallery-item:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+        }
+        
+        .item-tag {
+            position: absolute;
+            top: 20px;
+            right: -50px;
+            background-color: var(--tag-bg-color);
+            color: var(--tag-text-color);
+            padding: 5px 50px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            transform: rotate(45deg);
+            text-align: center;
+            box-shadow: 0 5px 10px rgba(0,0,0,0.2);
+        }
+        
+        .item-content {
+            padding: 30px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            flex-grow: 1;
+        }
+
+        .item-details h3 {
+            margin: 0 0 8px 0;
+            font-size: 1.6rem;
+            font-weight: 600;
+            color: var(--text-color);
+        }
+
+        .item-details p {
+            margin: 0 0 25px 0;
+            color: var(--accent-color);
+            font-size: 1rem;
+            font-weight: 600;
+        }
+        
+        .item-cta {
+            margin: auto 0 30px 0;
+        }
+        
+        .view-btn {
+            display: inline-block;
+            background-color: var(--accent-color);
+            color: var(--bg-color);
+            padding: 14px 35px;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+            border: 2px solid var(--accent-color);
+            text-align: center;
+        }
+
+        .view-btn:hover {
+            background-color: transparent;
+            color: var(--accent-color);
+            transform: scale(1.05);
+            box-shadow: 0 0 15px rgba(168, 173, 155, 0.3);
+        }
+        
+        .item-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-top: 1px solid var(--border-color);
+            padding-top: 20px;
+        }
+
+        .item-footer .price {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--text-color);
+        }
+        
+        .item-footer .delivery {
+            font-size: 0.9rem;
+            color: var(--text-color-muted);
+            background-color: #333;
+            padding: 5px 12px;
+            border-radius: 20px;
+        }
+        
+        @media (max-width: 768px) {
+            body { padding: 20px; }
+            header h1 { font-size: 2rem; }
+            .gallery-grid { grid-template-columns: 1fr; }
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="cursor"></div>
+
+    <div class="container">
+        <header>
+            <h1>3dwith_maro PRICING</h1>
+            <div class="pricing-note">
+                <strong>Please Note:</strong> All prices are estimates. Final pricing is negotiable and will be determined by the project's complexity and specific concept requirements.
+            </div>
+        </header>
+
+        <main>
+            <div class="gallery-grid">
+
+                <!-- Kellogg's TV Ad -->
+                <div class="gallery-item">
+                    <div class="item-tag">Flagship</div>
+                    <div class="item-content">
+                        <div class="item-details">
+                            <h3>Kellogg's Noodles TV Ad</h3>
+                            <p>Full TV Commercial Production</p>
+                        </div>
+                        <div class="item-cta">
+                             <a href="https://www.instagram.com/reel/DIkPEq7M78A/?igsh=MWdjYmluaWFieHh3Zg==" target="_blank" class="view-btn interactive">View Project</a>
+                        </div>
+                        <div class="item-footer">
+                            <span class="price">$1,500</span>
+                            <span class="delivery">9 Days Delivery</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Nike Color Switch -->
+                <div class="gallery-item">
+                     <div class="item-content">
+                        <div class="item-details">
+                            <h3>Nike Color Switch</h3>
+                            <p>Complex VFX Animation</p>
+                        </div>
+                        <div class="item-cta">
+                             <a href="https://www.instagram.com/reel/DFiwtMSsrzu/?igsh=ZXAwY3FvdGN2NWZr" target="_blank" class="view-btn interactive">View Project</a>
+                        </div>
+                        <div class="item-footer">
+                            <span class="price">$1,200</span>
+                            <span class="delivery">4 Days Delivery</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Nivea Van Animation -->
+                <div class="gallery-item">
+                    <div class="item-content">
+                        <div class="item-details">
+                            <h3>Nivea Van Animation</h3>
+                            <p>Stylized Commercial Spot</p>
+                        </div>
+                        <div class="item-cta">
+                            <a href="#" class="view-btn interactive" style="background-color:#444; border-color:#444; color:#999; pointer-events:none;">Unavailable</a>
+                        </div>
+                        <div class="item-footer">
+                            <span class="price">$900</span>
+                            <span class="delivery">4 Days Delivery</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Wabi Tissues Ad -->
+                <div class="gallery-item">
+                    <div class="item-content">
+                        <div class="item-details">
+                            <h3>Wabi Tissues Ad</h3>
+                            <p>Clean Product Animation</p>
+                        </div>
+                         <div class="item-cta">
+                            <a href="#" class="view-btn interactive" style="background-color:#444; border-color:#444; color:#999; pointer-events:none;">Unavailable</a>
+                        </div>
+                        <div class="item-footer">
+                            <span class="price">$870</span>
+                            <span class="delivery">5 Days Delivery</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- VFX Drone Coffee Delivery -->
+                <div class="gallery-item">
+                   <div class="item-content">
+                        <div class="item-details">
+                            <h3>VFX Drone Coffee Delivery</h3>
+                            <p>Dynamic VFX Integration</p>
+                        </div>
+                        <div class="item-cta">
+                            <a href="https://www.instagram.com/reel/DE61WCTMHxL/?igsh=eGQxM2M2eGVzZXRp" target="_blank" class="view-btn interactive">View Project</a>
+                        </div>
+                        <div class="item-footer">
+                            <span class="price">$760</span>
+                            <span class="delivery">4 Days Delivery</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Nivea Mother's Day Ad -->
+                <div class="gallery-item">
+                    <div class="item-content">
+                        <div class="item-details">
+                            <h3>Nivea Mother's Day Ad</h3>
+                            <p>Themed CGI Animation</p>
+                        </div>
+                        <div class="item-cta">
+                            <a href="https://www.instagram.com/reel/DHeBC_CCTQp/?igsh=bHV0OWh1Y3BnZXd2" target="_blank" class="view-btn interactive">View Project</a>
+                        </div>
+                        <div class="item-footer">
+                            <span class="price">$460</span>
+                            <span class="delivery">4 Days Delivery</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Other Renders -->
+                <div class="gallery-item">
+                    <div class="item-content">
+                        <div class="item-details">
+                            <h3>Photorealistic Renders</h3>
+                            <p>High-End Product Stills</p>
+                        </div>
+                         <div class="item-cta">
+                            <a href="https://www.instagram.com/p/DIw0yuWqvnM/?igsh=ejhzdGZwMnQzMmt0" target="_blank" class="view-btn interactive">View Examples</a>
+                        </div>
+                        <div class="item-footer">
+                            <span class="price">$300 - $340</span>
+                            <span class="delivery">3 Days Delivery</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Basic Commercial Ads -->
+                <div class="gallery-item">
+                     <div class="item-content">
+                        <div class="item-details">
+                            <h3>Standard Social Ads</h3>
+                            <p>Short CGI Animations</p>
+                        </div>
+                        <div class="item-cta">
+                            <a href="https://www.instagram.com/reel/DG_OXQmPb5O/?igsh=MTc5ZGh5bGt5YWpicg==" target="_blank" class="view-btn interactive">View Examples</a>
+                        </div>
+                        <div class="item-footer">
+                            <span class="price">$300 - $450</span>
+                            <span class="delivery">3 Days Delivery</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Modern Chair Renders -->
+                <div class="gallery-item">
+                    <div class="item-content">
+                        <div class="item-details">
+                            <h3>Modern Chair Renders</h3>
+                            <p>Catalog-Ready Still Images</p>
+                        </div>
+                        <div class="item-cta">
+                            <a href="https://www.instagram.com/p/DIHOiCJKmXF/?igsh=MTVzMGs2M3VvY2cyag==" target="_blank" class="view-btn interactive">View Project</a>
+                        </div>
+                        <div class="item-footer">
+                            <span class="price">$190</span>
+                            <span class="delivery">4 Days Delivery</span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </main>
+    </div>
+
+    <script>
+        const cursor = document.querySelector('.cursor');
+        const interactiveElements = document.querySelectorAll('.interactive');
+
+        document.addEventListener('mousemove', e => {
+            cursor.style.left = e.clientX + 'px';
+            cursor.style.top = e.clientY + 'px';
+        });
+
+        interactiveElements.forEach(el => {
+            el.addEventListener('mouseenter', () => {
+                cursor.classList.add('hovered');
+            });
+            el.addEventListener('mouseleave', () => {
+                cursor.classList.remove('hovered');
+            });
+        });
+    </script>
+</body>
+</html>
