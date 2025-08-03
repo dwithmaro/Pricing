@@ -3,406 +3,991 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>3dwith_maro - Pricing Guide</title>
+    <title>3DWITH_MARO - Pricing</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap');
-
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Poppins:wght@300;400;500;600;700;900&display=swap');
+        
         :root {
-            --bg-color: #1A1A1A;
-            --card-bg-color: #252525;
-            --text-color: #EAEAEA;
-            --text-color-muted: #999;
-            --accent-color: #A8AD9B;
-            --border-color: #333;
-            --tag-bg-color: var(--accent-color);
-            --tag-text-color: var(--bg-color);
+            /* Background Colors */
+            --bg-primary: #0D0D0D;      /* Deep black-gray */
+            --bg-card: #1A1A1A;       /* Card background */
+            --bg-unavailable: #2C2C2C;  /* Unavailable banner */
+            
+            /* Text Colors */
+            --text-primary: #FFFFFF;   /* Pure white */
+            --text-secondary: #B0B0B0; /* Muted text */
+            --text-unavailable: #888888; /* Unavailable text */
+            
+            /* Accent Colors */
+            --accent-red-start: #FF3C38; /* Red gradient start */
+            --accent-red-end: #FF6A00;   /* Red gradient end */
+            --accent-gold-start: #F9D423; /* Gold gradient start */
+            --accent-gold-end: #FF4E50;   /* Gold gradient end */
+            --accent-badge: #FF914D;     /* Flagship badge glow */
+            
+            --font-main: 'Poppins', sans-serif;
+            --font-headings: 'Playfair Display', serif;
         }
-
+        
         * {
-            box-sizing: border-box;
-            cursor: none;
-        }
-
-        body {
-            background-color: var(--bg-color);
-            color: var(--text-color);
-            font-family: 'Poppins', sans-serif;
             margin: 0;
-            padding: 40px;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        html {
+            scroll-behavior: smooth;
+        }
+        
+        body {
+            font-family: var(--font-main);
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.7;
             overflow-x: hidden;
-            -webkit-font-smoothing: antialiased;
-            -moz-osx-font-smoothing: grayscale;
+            position: relative;
         }
-
-        .cursor {
-            width: 30px;
-            height: 30px;
-            border: 2px solid var(--text-color);
-            border-radius: 50%;
+        
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        
+        ::-webkit-scrollbar-track {
+            background: var(--bg-card);
+        }
+        
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(90deg, var(--accent-red-start), var(--accent-red-end));
+            border-radius: 4px;
+        }
+        
+        ::-webkit-scrollbar-thumb:hover {
+            background: linear-gradient(90deg, var(--accent-gold-start), var(--accent-gold-end));
+        }
+        
+        /* Animated Background */
+        .bg-animation {
             position: fixed;
-            pointer-events: none;
-            z-index: 9999;
-            transform: translate(-50%, -50%);
-            transition: width 0.3s ease, height 0.3s ease, background-color 0.3s ease, border-color 0.3s ease, mix-blend-mode 0.3s ease;
-            mix-blend-mode: difference;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background: var(--bg-primary);
+            overflow: hidden;
         }
-
-        .cursor.hovered {
-            width: 60px;
-            height: 60px;
-            background-color: white;
-            border-color: white;
+        
+        .bg-animation::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255, 60, 56, 0.05) 0%, transparent 70%);
+            animation: rotate 30s linear infinite;
         }
-
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            opacity: 0;
-            transform: translateY(20px);
-            animation: fadeIn 1s 0.2s ease-out forwards;
+        
+        @keyframes rotate {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
         }
-
-        @keyframes fadeIn {
-            to {
-                opacity: 1;
-                transform: translateY(0);
+        
+        /* Particle Effect */
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+        }
+        
+        .particle {
+            position: absolute;
+            border-radius: 50%;
+            opacity: 0.15;
+            animation: float 20s infinite linear;
+        }
+        
+        .particle.red {
+            background-color: var(--accent-red-start);
+        }
+        
+        .particle.gold {
+            background-color: var(--accent-gold-start);
+        }
+        
+        @keyframes float {
+            0% {
+                transform: translateY(0) translateX(0);
+                opacity: 0;
+            }
+            10% {
+                opacity: 0.15;
+            }
+            90% {
+                opacity: 0.15;
+            }
+            100% {
+                transform: translateY(-100vh) translateX(100px);
+                opacity: 0;
             }
         }
-
-        header {
-            text-align: center;
-            margin-bottom: 40px;
-        }
-
-        header h1 {
-            font-size: 3rem;
-            margin: 0 0 20px 0;
-            color: var(--text-color);
-            text-transform: uppercase;
-            letter-spacing: 2px;
+        
+        /* Custom Cursor */
+        .cursor {
+            position: fixed;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: rgba(255, 60, 56, 0.5);
+            pointer-events: none;
+            z-index: 9999;
+            transition: transform 0.1s ease;
+            mix-blend-mode: difference;
         }
         
-        .pricing-note {
-            background-color: var(--card-bg-color);
-            border-left: 4px solid var(--accent-color);
-            padding: 15px 25px;
-            margin: 0 auto 40px;
-            border-radius: 8px;
-            max-width: 700px;
-            text-align: center;
-            font-size: 0.95rem;
-            line-height: 1.6;
-            color: var(--text-color-muted);
+        .cursor-follower {
+            position: fixed;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            border: 2px solid rgba(255, 60, 56, 0.3);
+            pointer-events: none;
+            z-index: 9998;
+            transition: transform 0.3s ease;
         }
         
-        .pricing-note strong {
-            color: var(--text-color);
-            font-weight: 600;
-        }
-
-        .gallery-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
-            gap: 25px;
-        }
-
-        .gallery-item {
-            background-color: var(--card-bg-color);
-            border-radius: 12px;
-            border: 1px solid var(--border-color);
+        /* Loading Screen */
+        .loader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--bg-primary);
             display: flex;
-            flex-direction: column;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            justify-content: center;
+            align-items: center;
+            z-index: 10000;
+            transition: opacity 0.5s ease, visibility 0.5s ease;
+        }
+        
+        .loader.hidden {
+            opacity: 0;
+            visibility: hidden;
+        }
+        
+        .loader-content {
+            text-align: center;
+        }
+        
+        .loader-logo {
+            font-family: var(--font-headings);
+            font-size: 3rem;
+            background: linear-gradient(90deg, var(--accent-red-start), var(--accent-red-end));
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 20px;
+            animation: pulse 1.5s infinite;
+        }
+        
+        @keyframes pulse {
+            0% { opacity: 0.5; transform: scale(0.95); }
+            50% { opacity: 1; transform: scale(1); }
+            100% { opacity: 0.5; transform: scale(0.95); }
+        }
+        
+        .loader-bar {
+            width: 200px;
+            height: 4px;
+            background: var(--bg-card);
+            border-radius: 2px;
+            overflow: hidden;
+            margin: 0 auto;
+        }
+        
+        .loader-progress {
+            height: 100%;
+            width: 0%;
+            background: linear-gradient(90deg, var(--accent-red-start), var(--accent-red-end));
+            border-radius: 2px;
+            animation: loading 2s ease-in-out forwards;
+        }
+        
+        @keyframes loading {
+            0% { width: 0%; }
+            100% { width: 100%; }
+        }
+        
+        /* Container */
+        .container {
+            width: 100%;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 20px;
+            position: relative;
+            z-index: 1;
+        }
+        
+        /* Header */
+        .header {
+            text-align: center;
+            padding: 80px 0 60px;
+            position: relative;
+        }
+        
+        .header::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 2px;
+            background: linear-gradient(90deg, var(--accent-red-start), var(--accent-red-end));
+        }
+        
+        .header h1 {
+            font-family: var(--font-headings);
+            font-size: 5rem;
+            font-weight: 900;
+            color: var(--text-primary);
+            margin-bottom: 15px;
+            letter-spacing: 3px;
+            position: relative;
+            display: inline-block;
+            text-transform: uppercase;
+        }
+        
+        .header .job-title {
+            font-size: 1.5rem;
+            background: linear-gradient(90deg, var(--accent-gold-start), var(--accent-gold-end));
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-weight: 600;
+            margin: 10px 0;
+        }
+        
+        .contact-info {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 15px 30px;
+            margin-top: 25px;
+        }
+        
+        .contact-info a {
+            color: var(--text-primary);
+            text-decoration: none;
+            font-size: 1rem;
+            font-weight: 400;
+            transition: color 0.3s ease;
+        }
+        
+        .contact-info a:hover {
+            color: var(--accent-red-start);
+        }
+        
+        .contact-info .portfolio-link {
+            font-weight: 600;
+            background: linear-gradient(90deg, var(--accent-red-start), var(--accent-red-end));
+            color: var(--text-primary);
+            padding: 8px 15px;
+            border-radius: 8px;
+            transition: all 0.3s ease;
             position: relative;
             overflow: hidden;
         }
-
-        .gallery-item:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+        
+        .contact-info .portfolio-link::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.6s ease;
         }
         
-        .item-tag {
+        .contact-info .portfolio-link:hover::before {
+            left: 100%;
+        }
+        
+        .contact-info .portfolio-link:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(255, 60, 56, 0.4);
+        }
+        
+        /* Pricing Notice - Very Prominent */
+        .pricing-notice {
+            text-align: center;
+            margin: 60px auto;
+            max-width: 900px;
+            padding: 30px;
+            background: linear-gradient(90deg, var(--accent-red-start), var(--accent-red-end));
+            border-radius: 15px;
+            font-size: 1.4rem;
+            color: var(--text-primary);
+            font-weight: 600;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(255, 60, 56, 0.3);
+            transform: scale(1);
+            animation: pulse-notice 3s infinite ease-in-out;
+        }
+        
+        @keyframes pulse-notice {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.02); }
+            100% { transform: scale(1); }
+        }
+        
+        .pricing-notice::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+            transform: translateX(-100%);
+            animation: shimmer-bg 3s infinite;
+        }
+        
+        @keyframes shimmer-bg {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+        
+        /* Section */
+        .section {
+            margin-bottom: 80px;
+            position: relative;
+        }
+        
+        .section-title {
+            font-family: var(--font-headings);
+            font-size: 3rem;
+            color: var(--text-primary);
+            margin-bottom: 50px;
+            text-align: center;
+            position: relative;
+            font-weight: 700;
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 3px;
+            background: linear-gradient(90deg, var(--accent-red-start), var(--accent-red-end));
+        }
+        
+        /* Pricing Grid */
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 40px;
+        }
+        
+        /* Pricing Card */
+        .pricing-card {
+            background: var(--bg-card);
+            border-radius: 15px;
+            overflow: hidden;
+            position: relative;
+            transform-style: preserve-3d;
+            transition: transform 0.6s ease, box-shadow 0.6s ease;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+        }
+        
+        .pricing-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(255, 60, 56, 0.2);
+        }
+        
+        .pricing-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, var(--accent-red-start), var(--accent-red-end));
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.5s ease;
+        }
+        
+        .pricing-card:hover::before {
+            transform: scaleX(1);
+        }
+        
+        .card-content {
+            padding: 30px;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .flagship-badge {
             position: absolute;
             top: 20px;
-            right: -50px;
-            background-color: var(--tag-bg-color);
-            color: var(--tag-text-color);
-            padding: 5px 50px;
-            font-size: 0.8rem;
-            font-weight: 700;
+            right: 20px;
+            background: var(--accent-badge);
+            color: var(--text-primary);
+            font-size: 0.75rem;
+            font-weight: 600;
+            padding: 6px 12px;
+            border-radius: 20px;
             text-transform: uppercase;
-            transform: rotate(45deg);
-            text-align: center;
-            box-shadow: 0 5px 10px rgba(0,0,0,0.2);
+            letter-spacing: 1px;
+            box-shadow: 0 0 8px rgba(255, 145, 77, 0.6);
+            z-index: 2;
         }
         
-        .item-content {
-            padding: 30px;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            flex-grow: 1;
-        }
-
-        .item-details h3 {
-            margin: 0 0 8px 0;
-            font-size: 1.6rem;
-            font-weight: 600;
-            color: var(--text-color);
-        }
-
-        .item-details p {
-            margin: 0 0 25px 0;
-            color: var(--accent-color);
-            font-size: 1rem;
-            font-weight: 600;
-        }
-        
-        .item-cta {
-            margin: auto 0 30px 0;
-        }
-        
-        .view-btn {
-            display: inline-block;
-            background-color: var(--accent-color);
-            color: var(--bg-color);
-            padding: 14px 35px;
-            text-decoration: none;
-            border-radius: 50px;
+        .project-title {
+            font-family: var(--font-headings);
+            font-size: 1.8rem;
+            color: var(--text-primary);
+            margin-top: 0;
+            margin-bottom: 15px;
             font-weight: 700;
-            font-size: 0.9rem;
-            transition: all 0.3s ease;
-            border: 2px solid var(--accent-color);
-            text-align: center;
-        }
-
-        .view-btn:hover {
-            background-color: transparent;
-            color: var(--accent-color);
-            transform: scale(1.05);
-            box-shadow: 0 0 15px rgba(168, 173, 155, 0.3);
+            position: relative;
+            padding-bottom: 15px;
         }
         
-        .item-footer {
+        .project-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 50px;
+            height: 2px;
+            background: var(--accent-red-start);
+        }
+        
+        .project-description {
+            color: var(--text-secondary);
+            margin-bottom: 25px;
+            font-size: 1rem;
+            font-weight: 400;
+            line-height: 1.6;
+        }
+        
+        .price-container {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            border-top: 1px solid var(--border-color);
-            padding-top: 20px;
+            margin-bottom: 25px;
+            padding: 15px 0;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
         }
-
-        .item-footer .price {
-            font-size: 1.8rem;
+        
+        .price {
+            font-size: 2.5rem;
             font-weight: 700;
-            color: var(--text-color);
+            background: linear-gradient(90deg, var(--accent-gold-start), var(--accent-gold-end));
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: 1px;
+            position: relative;
         }
         
-        .item-footer .delivery {
+        .price::before {
+            content: '$';
+            font-size: 1.5rem;
+            position: relative;
+            top: -10px;
+            margin-right: 5px;
+            background: var(--accent-gold-start);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .delivery {
             font-size: 0.9rem;
-            color: var(--text-color-muted);
-            background-color: #333;
-            padding: 5px 12px;
+            color: var(--text-secondary);
+            background: rgba(255, 255, 255, 0.05);
+            padding: 8px 15px;
             border-radius: 20px;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
         }
         
-        @media (max-width: 768px) {
-            body { padding: 20px; }
-            header h1 { font-size: 2rem; }
-            .gallery-grid { grid-template-columns: 1fr; }
+        .delivery::before {
+            content: '⏱';
+            margin-right: 5px;
         }
-
+        
+        .card-action {
+            margin-top: 20px;
+        }
+        
+        .view-project {
+            display: inline-block;
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(90deg, var(--accent-red-start), var(--accent-red-end));
+            color: var(--text-primary);
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: 600;
+            text-align: center;
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .view-project::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.6s ease;
+        }
+        
+        .view-project:hover::before {
+            left: 100%;
+        }
+        
+        .view-project:hover {
+            background: linear-gradient(90deg, var(--accent-gold-start), var(--accent-gold-end));
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(255, 60, 56, 0.4);
+        }
+        
+        .unavailable {
+            display: inline-block;
+            width: 100%;
+            padding: 15px;
+            background: var(--bg-unavailable);
+            color: var(--text-unavailable);
+            border-radius: 8px;
+            font-weight: 600;
+            text-align: center;
+            cursor: not-allowed;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        /* Card Background Pattern */
+        .card-pattern {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(255, 60, 56, 0.03) 0%, transparent 8%),
+                radial-gradient(circle at 90% 80%, rgba(249, 212, 35, 0.03) 0%, transparent 8%),
+                radial-gradient(circle at 50% 50%, rgba(255, 60, 56, 0.03) 0%, transparent 8%);
+            background-size: 20px 20px;
+            opacity: 0.5;
+            z-index: 0;
+        }
+        
+        /* Footer */
+        .footer {
+            text-align: center;
+            padding: 60px 0;
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, transparent, rgba(255, 60, 56, 0.02), transparent);
+            transform: translateX(-100%);
+            animation: shimmer-bg 5s infinite;
+        }
+        
+        /* Glow Effect */
+        .glow {
+            position: relative;
+        }
+        
+        .glow::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border-radius: inherit;
+            background: inherit;
+            filter: blur(15px);
+            opacity: 0;
+            z-index: -1;
+            transition: opacity 0.3s ease;
+        }
+        
+        .glow:hover::before {
+            opacity: 0.7;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 3.5rem;
+            }
+            
+            .section-title {
+                font-size: 2.5rem;
+            }
+            
+            .pricing-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .pricing-notice {
+                font-size: 1.2rem;
+                padding: 20px;
+                margin: 40px auto;
+            }
+        }
     </style>
 </head>
 <body>
-
+    <!-- Animated Background -->
+    <div class="bg-animation"></div>
+    
+    <!-- Particles -->
+    <div class="particles" id="particles"></div>
+    
+    <!-- Custom Cursor -->
     <div class="cursor"></div>
-
+    <div class="cursor-follower"></div>
+    
+    <!-- Loading Screen -->
+    <div class="loader" id="loader">
+        <div class="loader-content">
+            <div class="loader-logo">3DWITH_MARO</div>
+            <div class="loader-bar">
+                <div class="loader-progress"></div>
+            </div>
+        </div>
+    </div>
+    
     <div class="container">
-        <header>
-            <h1>3dwith_maro PRICING</h1>
-            <div class="pricing-note">
-                <strong>Please Note:</strong> All prices are estimates. Final pricing is negotiable and will be determined by the project's complexity and specific concept requirements.
+        <header class="header">
+            <h1>3DWITH_MARO</h1>
+            <p class="job-title">Pricing</p>
+            <div class="contact-info">
+                <a>📍 Giza, Egypt</a>
+                <a href="tel:+201004084788">📞 +20 100 408 4788</a>
+                <a href="mailto:3dwithmaro@gmail.com">📧 3dwithmaro@gmail.com</a>
+                <a href="https://www.instagram.com/3dwith_maro" target="_blank" class="portfolio-link">Visit Portfolio @3dwith_maro</a>
             </div>
         </header>
-
-        <main>
-            <div class="gallery-grid">
-
-                <!-- Kellogg's TV Ad -->
-                <div class="gallery-item">
-                    <div class="item-tag">Flagship</div>
-                    <div class="item-content">
-                        <div class="item-details">
-                            <h3>Kellogg's Noodles TV Ad</h3>
-                            <p>Full TV Commercial Production</p>
+        
+        <!-- Very Prominent Pricing Notice -->
+        <div class="pricing-notice">
+            <p>Please Note: All prices are estimates. Final pricing is negotiable and will be determined by the project's complexity and specific concept requirements.</p>
+        </div>
+        
+        <section class="section">
+            <h2 class="section-title">Professional Services</h2>
+            <div class="pricing-grid">
+                <div class="pricing-card glow">
+                    <div class="card-pattern"></div>
+                    <div class="flagship-badge">Flagship</div>
+                    <div class="card-content">
+                        <h3 class="project-title">Kellogg's Noodles TV Ad</h3>
+                        <p class="project-description">Full TV Commercial Production</p>
+                        <div class="price-container">
+                            <div class="price">1,500</div>
+                            <div class="delivery">9 Days</div>
                         </div>
-                        <div class="item-cta">
-                             <a href="https://www.instagram.com/reel/DIkPEq7M78A/?igsh=MWdjYmluaWFieHh3Zg==" target="_blank" class="view-btn interactive">View Project</a>
-                        </div>
-                        <div class="item-footer">
-                            <span class="price">$1,500</span>
-                            <span class="delivery">9 Days Delivery</span>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Nike Color Switch -->
-                <div class="gallery-item">
-                     <div class="item-content">
-                        <div class="item-details">
-                            <h3>Nike Color Switch</h3>
-                            <p>Complex VFX Animation</p>
-                        </div>
-                        <div class="item-cta">
-                             <a href="https://www.instagram.com/reel/DFiwtMSsrzu/?igsh=ZXAwY3FvdGN2NWZr" target="_blank" class="view-btn interactive">View Project</a>
-                        </div>
-                        <div class="item-footer">
-                            <span class="price">$1,200</span>
-                            <span class="delivery">4 Days Delivery</span>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Nivea Van Animation -->
-                <div class="gallery-item">
-                    <div class="item-content">
-                        <div class="item-details">
-                            <h3>Nivea Van Animation</h3>
-                            <p>Stylized Commercial Spot</p>
-                        </div>
-                        <div class="item-cta">
-                            <a href="#" class="view-btn interactive" style="background-color:#444; border-color:#444; color:#999; pointer-events:none;">Unavailable</a>
-                        </div>
-                        <div class="item-footer">
-                            <span class="price">$900</span>
-                            <span class="delivery">4 Days Delivery</span>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Wabi Tissues Ad -->
-                <div class="gallery-item">
-                    <div class="item-content">
-                        <div class="item-details">
-                            <h3>Wabi Tissues Ad</h3>
-                            <p>Clean Product Animation</p>
-                        </div>
-                         <div class="item-cta">
-                            <a href="#" class="view-btn interactive" style="background-color:#444; border-color:#444; color:#999; pointer-events:none;">Unavailable</a>
-                        </div>
-                        <div class="item-footer">
-                            <span class="price">$870</span>
-                            <span class="delivery">5 Days Delivery</span>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- VFX Drone Coffee Delivery -->
-                <div class="gallery-item">
-                   <div class="item-content">
-                        <div class="item-details">
-                            <h3>VFX Drone Coffee Delivery</h3>
-                            <p>Dynamic VFX Integration</p>
-                        </div>
-                        <div class="item-cta">
-                            <a href="https://www.instagram.com/reel/DE61WCTMHxL/?igsh=eGQxM2M2eGVzZXRp" target="_blank" class="view-btn interactive">View Project</a>
-                        </div>
-                        <div class="item-footer">
-                            <span class="price">$760</span>
-                            <span class="delivery">4 Days Delivery</span>
+                        <div class="card-action">
+                            <a href="https://www.instagram.com/reel/DIkPEq7M78A/?igsh=MWdjYmluaWFieHh3Zg%3D%3D" target="_blank" class="view-project">View Project</a>
                         </div>
                     </div>
                 </div>
                 
-                <!-- Nivea Mother's Day Ad -->
-                <div class="gallery-item">
-                    <div class="item-content">
-                        <div class="item-details">
-                            <h3>Nivea Mother's Day Ad</h3>
-                            <p>Themed CGI Animation</p>
+                <div class="pricing-card glow">
+                    <div class="card-pattern"></div>
+                    <div class="flagship-badge">Flagship</div>
+                    <div class="card-content">
+                        <h3 class="project-title">Nike Color Switch</h3>
+                        <p class="project-description">Complex VFX Animation</p>
+                        <div class="price-container">
+                            <div class="price">1,200</div>
+                            <div class="delivery">4 Days</div>
                         </div>
-                        <div class="item-cta">
-                            <a href="https://www.instagram.com/reel/DHeBC_CCTQp/?igsh=bHV0OWh1Y3BnZXd2" target="_blank" class="view-btn interactive">View Project</a>
-                        </div>
-                        <div class="item-footer">
-                            <span class="price">$460</span>
-                            <span class="delivery">4 Days Delivery</span>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Other Renders -->
-                <div class="gallery-item">
-                    <div class="item-content">
-                        <div class="item-details">
-                            <h3>Photorealistic Renders</h3>
-                            <p>High-End Product Stills</p>
-                        </div>
-                         <div class="item-cta">
-                            <a href="https://www.instagram.com/p/DIw0yuWqvnM/?igsh=ejhzdGZwMnQzMmt0" target="_blank" class="view-btn interactive">View Examples</a>
-                        </div>
-                        <div class="item-footer">
-                            <span class="price">$300 - $340</span>
-                            <span class="delivery">3 Days Delivery</span>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Basic Commercial Ads -->
-                <div class="gallery-item">
-                     <div class="item-content">
-                        <div class="item-details">
-                            <h3>Standard Social Ads</h3>
-                            <p>Short CGI Animations</p>
-                        </div>
-                        <div class="item-cta">
-                            <a href="https://www.instagram.com/reel/DG_OXQmPb5O/?igsh=MTc5ZGh5bGt5YWpicg==" target="_blank" class="view-btn interactive">View Examples</a>
-                        </div>
-                        <div class="item-footer">
-                            <span class="price">$300 - $450</span>
-                            <span class="delivery">3 Days Delivery</span>
+                        <div class="card-action">
+                            <a href="https://www.instagram.com/reel/DFiwtMSsrzu/?igsh=ZXAwY3FvdGN2NWZr" target="_blank" class="view-project">View Project</a>
                         </div>
                     </div>
                 </div>
                 
-                <!-- Modern Chair Renders -->
-                <div class="gallery-item">
-                    <div class="item-content">
-                        <div class="item-details">
-                            <h3>Modern Chair Renders</h3>
-                            <p>Catalog-Ready Still Images</p>
+                <div class="pricing-card glow">
+                    <div class="card-pattern"></div>
+                    <div class="flagship-badge">Flagship</div>
+                    <div class="card-content">
+                        <h3 class="project-title">Product Showcase</h3>
+                        <p class="project-description">Animations For Social Media</p>
+                        <div class="price-container">
+                            <div class="price">1,100</div>
+                            <div class="delivery">4 Days</div>
                         </div>
-                        <div class="item-cta">
-                            <a href="https://www.instagram.com/p/DIHOiCJKmXF/?igsh=MTVzMGs2M3VvY2cyag==" target="_blank" class="view-btn interactive">View Project</a>
-                        </div>
-                        <div class="item-footer">
-                            <span class="price">$190</span>
-                            <span class="delivery">4 Days Delivery</span>
+                        <div class="card-action">
+                            <a href="https://www.instagram.com/reel/DM2qNWoK3N2/?igsh=MWxxOWF6dGw0dnBuNw==" target="_blank" class="view-project">View Project</a>
                         </div>
                     </div>
                 </div>
-
+                
+                <div class="pricing-card glow">
+                    <div class="card-pattern"></div>
+                    <div class="flagship-badge">Flagship</div>
+                    <div class="card-content">
+                        <h3 class="project-title">Nivea Van Animation</h3>
+                        <p class="project-description">Stylized Commercial Spot</p>
+                        <div class="price-container">
+                            <div class="price">900</div>
+                            <div class="delivery">4 Days</div>
+                        </div>
+                        <div class="card-action">
+                            <span class="unavailable">Unavailable</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="pricing-card glow">
+                    <div class="card-pattern"></div>
+                    <div class="flagship-badge">Flagship</div>
+                    <div class="card-content">
+                        <h3 class="project-title">Wabi Tissues Ad</h3>
+                        <p class="project-description">Clean Product Animation</p>
+                        <div class="price-container">
+                            <div class="price">870</div>
+                            <div class="delivery">5 Days</div>
+                        </div>
+                        <div class="card-action">
+                            <span class="unavailable">Unavailable</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="pricing-card glow">
+                    <div class="card-pattern"></div>
+                    <div class="card-content">
+                        <h3 class="project-title">VFX Drone Coffee Delivery</h3>
+                        <p class="project-description">Dynamic VFX Integration</p>
+                        <div class="price-container">
+                            <div class="price">760</div>
+                            <div class="delivery">4 Days</div>
+                        </div>
+                        <div class="card-action">
+                            <a href="https://www.instagram.com/reel/DE61WCTMHxL/?igsh=eGQxM2M2eGVzZXRp" target="_blank" class="view-project">View Project</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="pricing-card glow">
+                    <div class="card-pattern"></div>
+                    <div class="card-content">
+                        <h3 class="project-title">Nivea Mother's Day Ad</h3>
+                        <p class="project-description">Themed CGI Animation</p>
+                        <div class="price-container">
+                            <div class="price">460</div>
+                            <div class="delivery">4 Days</div>
+                        </div>
+                        <div class="card-action">
+                            <a href="https://www.instagram.com/reel/DHeBC_CCTQp/?igsh=bHV0OWh1Y3BnZXd2" target="_blank" class="view-project">View Project</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="pricing-card glow">
+                    <div class="card-pattern"></div>
+                    <div class="card-content">
+                        <h3 class="project-title">Photorealistic Renders</h3>
+                        <p class="project-description">High-End Product Stills</p>
+                        <div class="price-container">
+                            <div class="price">300-340</div>
+                            <div class="delivery">3 Days</div>
+                        </div>
+                        <div class="card-action">
+                            <a href="https://www.instagram.com/p/DIw0yuWqvnM/?igsh=ejhzdGZwMnQzMmt0" target="_blank" class="view-project">View Examples</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="pricing-card glow">
+                    <div class="card-pattern"></div>
+                    <div class="card-content">
+                        <h3 class="project-title">Standard Social Ads</h3>
+                        <p class="project-description">Short CGI Animations</p>
+                        <div class="price-container">
+                            <div class="price">300-450</div>
+                            <div class="delivery">3 Days</div>
+                        </div>
+                        <div class="card-action">
+                            <a href="https://www.instagram.com/reel/DL-FFyCos_m/?igsh=Z2xkbWFzc3lwcWtv" target="_blank" class="view-project">View Examples</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="pricing-card glow">
+                    <div class="card-pattern"></div>
+                    <div class="card-content">
+                        <h3 class="project-title">Modern Chair Renders</h3>
+                        <p class="project-description">Catalog-Ready Still Images</p>
+                        <div class="price-container">
+                            <div class="price">190</div>
+                            <div class="delivery">4 Days</div>
+                        </div>
+                        <div class="card-action">
+                            <a href="https://www.instagram.com/p/DIHOiCJKmXF/?igsh=MTVzMGs2M3VvY2cyag%3D%3D" target="_blank" class="view-project">View Project</a>
+                        </div>
+                    </div>
+                </div>
             </div>
-        </main>
+        </section>
+        
+        <footer class="footer">
+            <p>Premium 3D Services by 3DWITH_MARO</p>
+        </footer>
     </div>
-
+    
     <script>
+        // Loading Screen
+        window.addEventListener('load', function() {
+            setTimeout(function() {
+                document.getElementById('loader').classList.add('hidden');
+            }, 2000);
+        });
+        
+        // Custom Cursor
         const cursor = document.querySelector('.cursor');
-        const interactiveElements = document.querySelectorAll('.interactive');
-
-        document.addEventListener('mousemove', e => {
+        const cursorFollower = document.querySelector('.cursor-follower');
+        
+        document.addEventListener('mousemove', function(e) {
             cursor.style.left = e.clientX + 'px';
             cursor.style.top = e.clientY + 'px';
+            
+            setTimeout(function() {
+                cursorFollower.style.left = e.clientX + 'px';
+                cursorFollower.style.top = e.clientY + 'px';
+            }, 100);
         });
-
-        interactiveElements.forEach(el => {
-            el.addEventListener('mouseenter', () => {
-                cursor.classList.add('hovered');
+        
+        // Cursor Hover Effects
+        const hoverElements = document.querySelectorAll('a, button, .pricing-card');
+        
+        hoverElements.forEach(element => {
+            element.addEventListener('mouseenter', function() {
+                cursor.style.transform = 'scale(1.5)';
+                cursor.style.backgroundColor = 'rgba(255, 60, 56, 0.8)';
+                cursorFollower.style.transform = 'scale(1.5)';
+                cursorFollower.style.borderColor = 'rgba(255, 60, 56, 0.8)';
             });
-            el.addEventListener('mouseleave', () => {
-                cursor.classList.remove('hovered');
+            
+            element.addEventListener('mouseleave', function() {
+                cursor.style.transform = 'scale(1)';
+                cursor.style.backgroundColor = 'rgba(255, 60, 56, 0.5)';
+                cursorFollower.style.transform = 'scale(1)';
+                cursorFollower.style.borderColor = 'rgba(255, 60, 56, 0.3)';
             });
+        });
+        
+        // Particles
+        const particlesContainer = document.getElementById('particles');
+        const particleCount = 20;
+        
+        for (let i = 0; i < particleCount; i++) {
+            const particle = document.createElement('div');
+            particle.classList.add('particle');
+            
+            // Random color
+            const colors = ['red', 'gold'];
+            const randomColor = colors[Math.floor(Math.random() * colors.length)];
+            particle.classList.add(randomColor);
+            
+            // Random size
+            const size = Math.random() * 4 + 2;
+            particle.style.width = size + 'px';
+            particle.style.height = size + 'px';
+            
+            // Random position
+            particle.style.left = Math.random() * 100 + '%';
+            particle.style.top = Math.random() * 100 + '%';
+            
+            // Random animation duration
+            const duration = Math.random() * 20 + 10;
+            particle.style.animationDuration = duration + 's';
+            
+            // Random delay
+            const delay = Math.random() * 5;
+            particle.style.animationDelay = delay + 's';
+            
+            particlesContainer.appendChild(particle);
+        }
+        
+        // Parallax Effect on Mouse Move
+        document.addEventListener('mousemove', function(e) {
+            const cards = document.querySelectorAll('.pricing-card');
+            const x = e.clientX / window.innerWidth;
+            const y = e.clientY / window.innerHeight;
+            
+            cards.forEach((card, index) => {
+                const speed = (index % 3 + 1) * 0.3;
+                const xPos = (x - 0.5) * speed * 15;
+                const yPos = (y - 0.5) * speed * 15;
+                
+                card.style.transform = `translateX(${xPos}px) translateY(${yPos}px)`;
+            });
+        });
+        
+        // Intersection Observer for Animations
+        const observerOptions = {
+            root: null,
+            rootMargin: '0px',
+            threshold: 0.1
+        };
+        
+        const observer = new IntersectionObserver(function(entries) {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+        
+        // Observe all pricing cards
+        const cards = document.querySelectorAll('.pricing-card');
+        cards.forEach(card => {
+            card.style.opacity = '0';
+            card.style.transform = 'translateY(50px)';
+            card.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+            observer.observe(card);
         });
     </script>
 </body>
