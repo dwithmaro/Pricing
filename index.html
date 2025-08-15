@@ -261,6 +261,12 @@
             position: relative;
             display: inline-block;
             text-transform: uppercase;
+            animation: titleGlow 4s ease-in-out infinite alternate;
+        }
+        
+        @keyframes titleGlow {
+            0% { text-shadow: 0 0 10px rgba(255, 60, 56, 0.3); }
+            100% { text-shadow: 0 0 20px rgba(255, 60, 56, 0.6); }
         }
         
         .header .job-title {
@@ -286,11 +292,12 @@
             text-decoration: none;
             font-size: 1rem;
             font-weight: 400;
-            transition: color 0.3s ease;
+            transition: color 0.3s ease, transform 0.3s ease;
         }
         
         .contact-info a:hover {
             color: var(--accent-red-start);
+            transform: translateY(-2px);
         }
         
         .contact-info .portfolio-link {
@@ -411,7 +418,7 @@
         }
         
         .pricing-card:hover {
-            transform: translateY(-8px);
+            transform: translateY(-8px) scale(1.02);
             box-shadow: 0 20px 40px rgba(255, 60, 56, 0.2);
         }
         
@@ -452,6 +459,12 @@
             letter-spacing: 1px;
             box-shadow: 0 0 8px rgba(255, 145, 77, 0.6);
             z-index: 2;
+            animation: badgePulse 2s infinite;
+        }
+        
+        @keyframes badgePulse {
+            0%, 100% { box-shadow: 0 0 8px rgba(255, 145, 77, 0.6); }
+            50% { box-shadow: 0 0 15px rgba(255, 145, 77, 0.9); }
         }
         
         .project-title {
@@ -463,6 +476,11 @@
             font-weight: 700;
             position: relative;
             padding-bottom: 15px;
+            transition: color 0.3s ease;
+        }
+        
+        .pricing-card:hover .project-title {
+            color: var(--accent-gold-start);
         }
         
         .project-title::after {
@@ -473,6 +491,11 @@
             width: 50px;
             height: 2px;
             background: var(--accent-red-start);
+            transition: width 0.3s ease;
+        }
+        
+        .pricing-card:hover .project-title::after {
+            width: 100px;
         }
         
         .project-description {
@@ -502,6 +525,12 @@
             -webkit-text-fill-color: transparent;
             letter-spacing: 1px;
             position: relative;
+            animation: priceGlow 3s ease-in-out infinite alternate;
+        }
+        
+        @keyframes priceGlow {
+            0% { filter: drop-shadow(0 0 5px rgba(249, 212, 35, 0.3)); }
+            100% { filter: drop-shadow(0 0 10px rgba(249, 212, 35, 0.6)); }
         }
         
         .price::before {
@@ -525,6 +554,12 @@
             font-weight: 500;
             display: flex;
             align-items: center;
+            transition: background 0.3s ease;
+        }
+        
+        .pricing-card:hover .delivery {
+            background: rgba(255, 60, 56, 0.1);
+            color: var(--text-primary);
         }
         
         .delivery::before {
@@ -586,6 +621,38 @@
             cursor: not-allowed;
             text-transform: uppercase;
             letter-spacing: 1px;
+            transition: background 0.3s ease;
+        }
+        
+        .unavailable:hover {
+            background: #3a3a3a;
+        }
+        
+        /* Available Card Highlight */
+        .pricing-card.available {
+            border: 2px solid rgba(34, 197, 94, 0.5);
+        }
+        
+        .pricing-card.available::after {
+            content: '✨ AVAILABLE';
+            position: absolute;
+            top: 15px;
+            left: 20px;
+            background: linear-gradient(90deg, #10b981, #34d399);
+            color: white;
+            font-size: 0.7rem;
+            font-weight: 600;
+            padding: 4px 8px;
+            border-radius: 15px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            z-index: 3;
+            animation: availablePulse 2s infinite;
+        }
+        
+        @keyframes availablePulse {
+            0%, 100% { box-shadow: 0 0 5px rgba(16, 185, 129, 0.5); }
+            50% { box-shadow: 0 0 15px rgba(16, 185, 129, 0.8); }
         }
         
         /* Card Background Pattern */
@@ -602,6 +669,11 @@
             background-size: 20px 20px;
             opacity: 0.5;
             z-index: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        .pricing-card:hover .card-pattern {
+            opacity: 0.7;
         }
         
         /* Footer */
@@ -651,6 +723,38 @@
             opacity: 0.7;
         }
         
+        /* Smooth Scroll Button */
+        .scroll-to-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(90deg, var(--accent-red-start), var(--accent-red-end));
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.2rem;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            z-index: 1000;
+        }
+        
+        .scroll-to-top.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        .scroll-to-top:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(255, 60, 56, 0.4);
+        }
+        
         /* Responsive */
         @media (max-width: 768px) {
             .header h1 {
@@ -670,6 +774,20 @@
                 padding: 20px;
                 margin: 40px auto;
             }
+            
+            .cursor,
+            .cursor-follower {
+                display: none;
+            }
+        }
+        
+        /* Performance optimizations */
+        .pricing-card {
+            will-change: transform, box-shadow;
+        }
+        
+        .particle {
+            will-change: transform, opacity;
         }
     </style>
 </head>
@@ -693,6 +811,9 @@
             </div>
         </div>
     </div>
+    
+    <!-- Scroll to Top Button -->
+    <button class="scroll-to-top" id="scrollToTop">↑</button>
     
     <div class="container">
         <header class="header">
@@ -778,7 +899,7 @@
                     </div>
                 </div>
                 
-                <div class="pricing-card glow">
+                <div class="pricing-card glow available">
                     <div class="card-pattern"></div>
                     <div class="flagship-badge">Flagship</div>
                     <div class="card-content">
@@ -789,7 +910,7 @@
                             <div class="delivery">5 Days</div>
                         </div>
                         <div class="card-action">
-                            <span class="unavailable">Unavailable</span>
+                            <a href="https://www.instagram.com/reel/DNIg4ogKQdd/?utm_source=ig_web_copy_link&igsh=cnpqY2x4eWpoanRr" target="_blank" class="view-project">View Project</a>
                         </div>
                     </div>
                 </div>
@@ -919,7 +1040,7 @@
         
         // Particles
         const particlesContainer = document.getElementById('particles');
-        const particleCount = 20;
+        const particleCount = 30;
         
         for (let i = 0; i < particleCount; i++) {
             const particle = document.createElement('div');
@@ -957,11 +1078,19 @@
             const y = e.clientY / window.innerHeight;
             
             cards.forEach((card, index) => {
-                const speed = (index % 3 + 1) * 0.3;
-                const xPos = (x - 0.5) * speed * 15;
-                const yPos = (y - 0.5) * speed * 15;
+                const speed = (index % 3 + 1) * 0.2;
+                const xPos = (x - 0.5) * speed * 10;
+                const yPos = (y - 0.5) * speed * 10;
                 
                 card.style.transform = `translateX(${xPos}px) translateY(${yPos}px)`;
+            });
+        });
+        
+        // Reset parallax on mouse leave
+        document.addEventListener('mouseleave', function() {
+            const cards = document.querySelectorAll('.pricing-card');
+            cards.forEach(card => {
+                card.style.transform = 'translateX(0px) translateY(0px)';
             });
         });
         
@@ -983,12 +1112,89 @@
         
         // Observe all pricing cards
         const cards = document.querySelectorAll('.pricing-card');
-        cards.forEach(card => {
+        cards.forEach((card, index) => {
             card.style.opacity = '0';
             card.style.transform = 'translateY(50px)';
-            card.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+            card.style.transition = `opacity 0.6s ease ${index * 0.1}s, transform 0.6s ease ${index * 0.1}s`;
             observer.observe(card);
         });
+        
+        // Scroll to Top Button
+        const scrollToTopBtn = document.getElementById('scrollToTop');
+        
+        window.addEventListener('scroll', function() {
+            if (window.pageYOffset > 300) {
+                scrollToTopBtn.classList.add('visible');
+            } else {
+                scrollToTopBtn.classList.remove('visible');
+            }
+        });
+        
+        scrollToTopBtn.addEventListener('click', function() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+        
+        // Enhanced card interaction effects
+        cards.forEach(card => {
+            card.addEventListener('mouseenter', function() {
+                this.style.zIndex = '10';
+            });
+            
+            card.addEventListener('mouseleave', function() {
+                this.style.zIndex = '1';
+            });
+        });
+        
+        // Performance optimization - throttle mousemove events
+        let ticking = false;
+        
+        function updateParallax(e) {
+            const cards = document.querySelectorAll('.pricing-card');
+            const x = e.clientX / window.innerWidth;
+            const y = e.clientY / window.innerHeight;
+            
+            cards.forEach((card, index) => {
+                const speed = (index % 3 + 1) * 0.2;
+                const xPos = (x - 0.5) * speed * 10;
+                const yPos = (y - 0.5) * speed * 10;
+                
+                card.style.transform = `translateX(${xPos}px) translateY(${yPos}px)`;
+            });
+            
+            ticking = false;
+        }
+        
+        document.addEventListener('mousemove', function(e) {
+            if (!ticking) {
+                requestAnimationFrame(() => updateParallax(e));
+                ticking = true;
+            }
+        });
+        
+        // Add subtle shake animation to available cards
+        const availableCard = document.querySelector('.pricing-card.available');
+        if (availableCard) {
+            setInterval(() => {
+                availableCard.style.animation = 'none';
+                setTimeout(() => {
+                    availableCard.style.animation = 'subtle-shake 0.5s ease-in-out';
+                }, 10);
+            }, 5000);
+        }
+        
+        // Add CSS for subtle shake
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes subtle-shake {
+                0%, 100% { transform: translateX(0); }
+                25% { transform: translateX(-2px); }
+                75% { transform: translateX(2px); }
+            }
+        `;
+        document.head.appendChild(style);
     </script>
 </body>
 </html>
